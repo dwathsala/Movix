@@ -14,7 +14,9 @@ export default function Index() {
   const {data : movies,
     loading : moviesLoading,
     error : moviesError
-    } = useFetch(() => fetchMovies({query: ""}) );
+    } = useFetch(() => fetchMovies({
+      query: "",
+    }) );
 
   return (
     <View className="flex-1 bg-primary">
