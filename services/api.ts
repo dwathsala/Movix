@@ -7,7 +7,6 @@ export const TBDB_CONFIG = {
   },
 }
 
-
 export const fetchMovies = async ({query} : {query: string}) => {
   const endpoint = query
     ? `${TBDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
