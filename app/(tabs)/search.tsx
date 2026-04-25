@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, FlatList, ActivityIndicator } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { images } from '@/constants/images'
 import MovieCard from '@/components/MovieCard'
 import { fetchMovies } from '@/services/api'
@@ -13,10 +13,20 @@ const Search = () => {
 
   const {data : movies,
     loading : moviesLoading,
-    error : moviesError
+    error : moviesError,
+    refetch : loadMovies,
+    reset,
     } = useFetch(() => fetchMovies({
     query: searchQuery,
-    }), );
+    }),false);
+
+    useEffect(() => {
+      const timeoutId = setTimeout(async () => {
+          await loadMovies();
+      }, 500);
+
+      return () => clearTimeout(timeoutId);
+    }, [searchQuery])
     
   return (
     <View className='flex-1 bg-primary'>
@@ -40,7 +50,11 @@ const Search = () => {
         </View>
 
         <View className="my-5">
-          <SearchBar placeholder="Search for a movie"/>
+          <SearchBar 
+            placeholder="Search for a movie"
+            value={searchQuery}
+            onChangeText={(text: string) => setSearchQuery(text)}
+          />
         </View>
 
         {moviesLoading && (
@@ -65,6 +79,16 @@ const Search = () => {
         )}
 
       </>
+      }
+
+      ListEmptyComponent={
+        !moviesLoading && !moviesError ?(
+          <View className="mt-10 px-5">
+            <Text className="text-center text-gray-500 text-lg">
+              {searchQuery.trim() ? 'No movie found' : 'Search for a movie'}
+            </Text>
+          </View>
+        ): null
       }
       />
       
