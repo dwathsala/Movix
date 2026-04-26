@@ -1,3 +1,10 @@
+# 🎬 Movix – Movie App (React Native)
+
+Movix is a modern movie browsing mobile application built using React Native and Expo. It allows users to explore movies, search for titles, and view detailed information in a clean and user-friendly interface.
+
+
+
+
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
