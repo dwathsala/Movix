@@ -2,6 +2,8 @@
 
 import { Client, Databases, ID, Query } from "react-native-appwrite";
 
+const SAVED_COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_SAVED_COLLECTION!;
+
 const DATABASE_ID = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID!;
 const COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION!;
 
