@@ -2,6 +2,8 @@
 
 import { Client, Databases, ID, Query } from "react-native-appwrite";
 
+const SAVED_COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_SAVED_COLLECTION!;
+
 const DATABASE_ID = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID!;
 const COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION!;
 
@@ -74,3 +76,49 @@ export const getTrendingMovies = async (): Promise<TrendingMovie[] | undefined> 
         return undefined;
     };
 }
+
+// SAVE MOVIE
+export const saveMovie = async (movie: Movie) => {
+  try {
+    if (!movie) return;
+
+    // prevent duplicates
+    const existing = await database.listDocuments(
+      DATABASE_ID,
+      SAVED_COLLECTION_ID,
+      [Query.equal("movie_id", movie.id.toString())]
+    );
+
+    if (existing.documents.length > 0) return;
+
+    await database.createDocument(
+      DATABASE_ID,
+      SAVED_COLLECTION_ID,
+      ID.unique(),
+      {
+        title: movie.title,
+        movie_id: movie.id.toString(),
+        poster_url: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+      }
+    );
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+// GET SAVED MOVIES
+export const getSavedMovies = async () => {
+  try {
+    const res = await database.listDocuments(
+      DATABASE_ID,
+      SAVED_COLLECTION_ID
+    );
+
+    return res.documents;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};

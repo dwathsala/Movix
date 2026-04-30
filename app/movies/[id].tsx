@@ -5,7 +5,7 @@ import { fetchMovieDetails } from '@/services/api';
 import useFetch from '@/services/useFetch';
 import { icons } from '@/constants/icons';
 import { Label } from '@react-navigation/elements';
-
+import { saveMovie } from '@/services/appwrite';
 
 interface MovieInfoProps {
   Label: string;
@@ -51,15 +51,25 @@ const MovieDetails  = () => {
           </Text>
         </View>
 
-        <View className = "flex-row items-center bg-dark-100 px-2 py-1 rounded-md gap-x-1 mt-2">
-          <Image source = {icons.star} className="size-4"/>
-          <Text className = "text-white text-sm font-bold">
-            {Math.round(movie?.vote_average ?? 0)}/10
-          </Text>
+        <View className = "flex-row items-center gap-x-3 mt-2">
+          <View className = "flex-row items-center bg-dark-100 px-2 py-2 rounded-md gap-x-1 mt-2">
+            <Image source = {icons.star} className="size-4"/>
+            <Text className = "text-white text-sm font-bold">
+              {Math.round(movie?.vote_average ?? 0)}/10
+            </Text>
 
-          <Text className = "text-light-200 text-sm">
-            {movie?.vote_count && movie?.vote_count !== 0 ? `(${movie.vote_count})` : ''} votes
-          </Text>
+            <Text className = "text-light-200 text-sm">
+              {movie?.vote_count && movie?.vote_count !== 0 ? `(${movie.vote_count})` : ''} votes
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            className="bg-accent px-4 py-2 rounded-md mt-2 flex-row items-center justify-center gap-2"
+            onPress={() => movie && saveMovie(movie)}
+          >
+            <Image source={icons.save} className="size-4" tintColor="#fff" />
+            <Text className="text-white font-bold">Save</Text>
+          </TouchableOpacity>
         </View>
 
         <MovieInfo Label="Overview" value={movie?.overview} />
