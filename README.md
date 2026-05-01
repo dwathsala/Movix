@@ -11,6 +11,7 @@ A modern Movie App built using **React Native (Expo)** that allows users to sear
 - 📊 Track trending searches
 - ⭐ Display ratings, votes, and runtime
 - 🔥 Trending movies section
+- ✔️ Save movies
 - ⚡ Smooth and responsive UI
 
 ---
@@ -20,6 +21,11 @@ A modern Movie App built using **React Native (Expo)** that allows users to sear
 - **Frontend:** React Native (Expo)
 - **Navigation:** Expo Router
 - **Backend:** Appwrite
-- **API:** TMDB (The Movie Database) - https://www.themoviedb.org/
+- **API:** TMDB (The Movie Database)
 - **State/Data Handling:** Custom Hooks (`useFetch`)
 - **Styling:** Tailwind CSS (NativeWind)
+
+---
+
+## 🔗API Used
+🎬 The Movie Database (TMDB) - https://www.themoviedb.org/
