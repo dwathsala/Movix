@@ -25,6 +25,8 @@ const MovieInfo = ({Label, value}: MovieInfoProps) => (
 )
 
 const MovieDetails  = () => {
+  const [isSaved, setIsSaved] = React.useState(false);
+
   const {id} = useLocalSearchParams();
 
   const {data : movie, loading, error} = useFetch(() => fetchMovieDetails(id as string));
@@ -64,11 +66,22 @@ const MovieDetails  = () => {
           </View>
 
           <TouchableOpacity
-            className="bg-accent px-4 py-2 rounded-md mt-2 flex-row items-center justify-center gap-2"
-            onPress={() => movie && saveMovie(movie)}
+            className="bg-dark-100 px-4 py-2 rounded mt-2 flex-row items-center justify-center gap-2"
+            onPress={() => {
+              if (!isSaved && movie) {
+                saveMovie(movie);
+                setIsSaved(true);
+              }
+            }}
           >
-            <Image source={icons.save} className="size-4" tintColor="#fff" />
-            <Text className="text-white font-bold">Save</Text>
+            <Image
+              source={icons.save}
+              className="size-4"
+              tintColor="#fff"
+            />
+            <Text className="text-white font-bold">
+              {isSaved ? "Saved" : "Save Movie"}
+            </Text>
           </TouchableOpacity>
         </View>
 
