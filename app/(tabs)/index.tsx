@@ -56,10 +56,7 @@ export default function Index() {
             </view>
           )}
 
-
           <>
-
-
             <FlatList 
             horizontal
             showsHorizontalScrollIndicator={false}
