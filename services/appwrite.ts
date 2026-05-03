@@ -13,6 +13,7 @@ const client = new Client()
 
 const database = new Databases(client);
 
+// update search count in appwrite database
 export const updateSearchCount = async (query: string, movie: Movie) => {
     try{
 
@@ -60,6 +61,7 @@ export const updateSearchCount = async (query: string, movie: Movie) => {
     //if no document fount create a new document in appwrite dtabase --> 1
 }
 
+// get trending movies
 export const getTrendingMovies = async (): Promise<TrendingMovie[] | undefined> => {
     try {
         
@@ -107,7 +109,6 @@ export const saveMovie = async (movie: Movie) => {
   }
 };
 
-
 // GET SAVED MOVIES
 export const getSavedMovies = async () => {
   try {
@@ -120,5 +121,20 @@ export const getSavedMovies = async () => {
   } catch (error) {
     console.log(error);
     return [];
+  }
+};
+
+// REMOVE SAVED MOVIE
+export const removeSavedMovie = async (documentId: string) => {
+  try {
+    await database.deleteDocument(
+      DATABASE_ID,
+      SAVED_COLLECTION_ID,
+      documentId
+    );
+    return true;
+  } catch (error) {
+    console.error("Error removing movie:", error);
+    return false;
   }
 };
